@@ -1,5 +1,5 @@
 local dlg = Dialog()
-    :entry { id = "separator", label = "Separator", text = "-" }
+    :entry { id = "separator", label = "Separator", text = "_" }
     :button { id = "confirm", text = "Confirm", focus = true }
     :button { id = "cancel", text = "Cancel" }
     :show()
