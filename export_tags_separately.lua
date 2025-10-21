@@ -1,5 +1,6 @@
 local dlg = Dialog()
     :entry { id = "separator", label = "Separator", text = "_" }
+    :check { id = "include_filename", label = "Include Filename", selected = true }
     :button { id = "confirm", text = "Confirm", focus = true }
     :button { id = "cancel", text = "Cancel" }
     :show()
@@ -13,7 +14,11 @@ if dlg.confirm then
     local msg = { "Do you want to export/overwrite the following files?" }
 
     for i, tag in ipairs(spr.tags) do
-        local fn = path .. title .. dlg.separator .. tag.name
+        local fn = path
+        if dlg.include_filename then
+            fn = fn .. title .. dlg.separator
+        end
+        fn = fn .. tag.name
         table.insert(msg, '-' .. fn .. '.png')
     end
 
@@ -23,7 +28,11 @@ if dlg.confirm then
     end
 
     for i, tag in ipairs(spr.tags) do
-        local fn = path .. '/' .. title .. dlg.separator .. tag.name
+        local fn = path .. '/'
+        if dlg.include_filename then
+            fn = fn .. title .. dlg.separator
+        end
+        fn = fn .. tag.name
         app.command.ExportSpriteSheet {
             ui = false,
             type = SpriteSheetType.HORIZONTAL,
